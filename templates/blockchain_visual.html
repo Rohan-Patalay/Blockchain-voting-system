@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Visualization - Blockchain Voting System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='blockchain-visual.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Blockchain Voting System</h1>
+            <div class="user-info">
+                Welcome, Administrator | <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <h2>Blockchain Visualization</h2>
+                <div class="blockchain-controls">
+                    <button id="validateChain" class="btn primary">Validate Blockchain</button>
+                    <div id="validationResult" class="alert" style="display: none;"></div>
+                </div>
+                <div class="blockchain-visual-container">
+                    <div id="blockchainVisual" class="blockchain-visual">
+                        {% for block in chain %}
+                        <div class="block-visual" data-index="{{ block.index }}">
+                            <div class="block-header">
+                                <h3>Block #{{ block.index }}</h3>
+                                <div class="block-hash-short">{{ block.hash[:8] }}...</div>
+                            </div>
+                            <div class="block-body">
+                                <div class="block-info">
+                                    <div><strong>Votes:</strong> {{ block.votes }}</div>
+                                    <div><strong>Nonce:</strong> {{ block.nonce }}</div>
+                                    <div><strong>Time:</strong> {{ block.timestamp|round(2) }}</div>
+                                </div>
+                                <div class="block-hash">{{ block.hash }}</div>
+                                {% if block.index > 0 %}
+                                <div class="prev-hash">
+                                    <span>Previous Hash:</span>
+                                    <span class="hash-value">{{ block.previous_hash }}</span>
+                                </div>
+                                {% else %}
+                                <div class="genesis-label">Genesis Block</div>
+                                {% endif %}
+                            </div>
+                            <div class="block-votes-preview">
+                                {% if block.votes > 0 %}
+                                <button class="btn secondary view-votes-btn" data-index="{{ block.index }}">View {{ block.votes }} Votes</button>
+                                {% else %}
+                                <span class="no-votes">No votes in this block</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if not loop.last %}
+                        <div class="chain-connector">
+                            <div class="chain-line"></div>
+                            <div class="chain-arrow">→</div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div id="blockDetailsModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <h3>Block Details</h3>
+                        <div id="blockDetailsContent"></div>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn secondary">Back to Dashboard</a>
+                    <a href="{{ url_for('view_blockchain') }}" class="btn secondary">Text View</a>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 Blockchain Voting System - College Project</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='blockchain-visual.js') }}"></script>
+</body>
+</html>

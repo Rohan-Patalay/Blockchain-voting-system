@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Blockchain Voting System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Blockchain Voting System</h1>
+            <div class="user-info">
+                Welcome, Administrator | <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <h2>Admin Dashboard</h2>
+                <div class="admin-actions">
+                    <div class="action-card">
+                        <h3>Mine Pending Votes</h3>
+                        <p>Add all pending votes to the blockchain by mining a new block.</p>
+                        <button id="mineButton" class="btn primary">Mine Block</button>
+                        <div id="mineResult" class="alert" style="display: none;"></div>
+                    </div>
+                    <div class="action-card">
+                        <h3>View Results</h3>
+                        <p>See the current voting results.</p>
+                        <a href="{{ url_for('results') }}" class="btn secondary">View Results</a>
+                    </div>
+                    <div class="action-card">
+                        <h3>View Blockchain</h3>
+                        <p>Inspect the entire blockchain.</p>
+                        <div class="action-buttons">
+                            <a href="{{ url_for('view_blockchain') }}" class="btn secondary">Text View</a>
+                            <a href="{{ url_for('blockchain_visual') }}" class="btn primary">Visual View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 Blockchain Voting System - College Project</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('mineButton').addEventListener('click', function() {
+            this.disabled = true;
+            this.textContent = 'Mining...';
+            
+            fetch('/admin/mine', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('mineResult');
+                if (data.message === 'Block mined successfully') {
+                    resultDiv.className = 'alert success';
+                    resultDiv.innerHTML = `<p>${data.message}</p><p>Block #${data.block.index} with ${data.block.votes} votes has been added to the blockchain.</p>`;
+                } else {
+                    resultDiv.className = 'alert error';
+                    resultDiv.innerHTML = `<p>${data.message}</p>`;
+                }
+                resultDiv.style.display = 'block';
+                this.disabled = false;
+                this.textContent = 'Mine Block';
+            })
+            .catch(error => {
+                const resultDiv = document.getElementById('mineResult');
+                resultDiv.className = 'alert error';
+                resultDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+                resultDiv.style.display = 'block';
+                this.disabled = false;
+                this.textContent = 'Mine Block';
+            });
+        });
+    </script>
+</body>
+</html>

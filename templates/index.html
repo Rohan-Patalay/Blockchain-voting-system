@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Voting System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Blockchain Voting System</h1>
+        </header>
+        <main>
+            <div class="card">
+                <h2>Secure Voting Platform</h2>
+                <p>Welcome to our blockchain-based secure voting system. This platform ensures transparency, security, and immutability of votes through blockchain technology.</p>
+                <div class="actions">
+                    <a href="{{ url_for('login') }}" class="btn primary">Login to Vote</a>
+                </div>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <h3>Secure</h3>
+                    <p>Your vote is encrypted and stored securely on the blockchain.</p>
+                </div>
+                <div class="feature">
+                    <h3>Transparent</h3>
+                    <p>All votes are publicly verifiable while maintaining voter privacy.</p>
+                </div>
+                <div class="feature">
+                    <h3>Immutable</h3>
+                    <p>Once cast, votes cannot be altered or deleted.</p>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 Blockchain Voting System - College Project</p>
+        </footer>
+    </div>
+</body>
+</html>

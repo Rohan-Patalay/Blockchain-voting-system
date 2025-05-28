@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - Blockchain Voting System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Blockchain Voting System</h1>
+            <div class="user-info">
+                Welcome, Administrator | <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <h2>Election Results</h2>
+                <div class="results">
+                    {% set total_votes = 0 %}
+                    {% for candidate in results %}
+                        {% set total_votes = total_votes + candidate.votes %}
+                    {% endfor %}
+                    
+                    {% for candidate in results %}
+                    <div class="result-item">
+                        <div class="candidate-name">{{ candidate.name }}</div>
+                        <div class="vote-count">{{ candidate.votes }} votes</div>
+                        <div class="vote-bar">
+                            <div class="vote-fill" style="width: {{ (candidate.votes / total_votes * 100) if total_votes > 0 else 0 }}%;"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="actions">
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn secondary">Back to Dashboard</a>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 Blockchain Voting System - College Project</p>
+        </footer>
+    </div>
+</body>
+</html>

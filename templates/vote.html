@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote - Blockchain Voting System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Blockchain Voting System</h1>
+            <div class="user-info">
+                Welcome, {{ session.name }} | <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <h2>Cast Your Vote</h2>
+                <p>Select a candidate to cast your vote. Remember, you can only vote once.</p>
+                <form action="{{ url_for('vote') }}" method="post">
+                    <div class="candidates">
+                        {% for candidate in candidates %}
+                        <div class="candidate">
+                            <input type="radio" id="candidate{{ candidate.id }}" name="candidate" value="{{ candidate.id }}" required>
+                            <label for="candidate{{ candidate.id }}">{{ candidate.name }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn primary">Submit Vote</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 Blockchain Voting System - College Project</p>
+        </footer>
+    </div>
+</body>
+</html>

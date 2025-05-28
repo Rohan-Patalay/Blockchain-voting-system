@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Blockchain Voting System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Blockchain Voting System</h1>
+        </header>
+        <main>
+            <div class="card">
+                <h2>Login</h2>
+                {% if error %}
+                <div class="alert error">
+                    {{ error }}
+                </div>
+                {% endif %}
+                <form action="{{ url_for('login') }}" method="post">
+                    <div class="form-group">
+                        <label for="voter_id">Voter ID</label>
+                        <input type="text" id="voter_id" name="voter_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn primary">Login</button>
+                    </div>
+                </form>
+                <div class="info">
+                    <p>For demo purposes, use these credentials:</p>
+                    <ul>
+                        <li>Voter ID: V1, Password: pass1</li>
+                        <li>Voter ID: V2, Password: pass2</li>
+                        <li>Admin: admin, Password: admin123</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 Blockchain Voting System - College Project</p>
+        </footer>
+    </div>
+</body>
+</html>

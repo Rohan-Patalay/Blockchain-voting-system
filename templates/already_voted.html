@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Already Voted - Blockchain Voting System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Blockchain Voting System</h1>
+            <div class="user-info">
+                Welcome, {{ session.name }} | <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <h2>Already Voted</h2>
+                <div class="alert info">
+                    <p>You have already cast your vote. Each voter can only vote once.</p>
+                </div>
+                <div class="actions">
+                    <a href="{{ url_for('logout') }}" class="btn secondary">Logout</a>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 Blockchain Voting System - College Project</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain View - Blockchain Voting System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Blockchain Voting System</h1>
+            <div class="user-info">
+                Welcome, Administrator | <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </header>
+        <main>
+            <div class="card">
+                <h2>Blockchain Explorer</h2>
+                <div class="blockchain-info">
+                    <p>Total Blocks: {{ chain|length }}</p>
+                    <p>Pending Votes: {{ pending_votes }}</p>
+                </div>
+                <div class="blockchain">
+                    {% for block in chain %}
+                    <div class="block">
+                        <div class="block-header">
+                            <h3>Block #{{ block.index }}</h3>
+                            <span class="timestamp">{{ block.timestamp|round(2) }}</span>
+                        </div>
+                        <div class="block-details">
+                            <div class="detail">
+                                <span class="label">Hash:</span>
+                                <span class="value">{{ block.hash }}</span>
+                            </div>
+                            <div class="detail">
+                                <span class="label">Previous Hash:</span>
+                                <span class="value">{{ block.previous_hash }}</span>
+                            </div>
+                            <div class="detail">
+                                <span class="label">Nonce:</span>
+                                <span class="value">{{ block.nonce }}</span>
+                            </div>
+                            <div class="detail">
+                                <span class="label">Votes:</span>
+                                <span class="value">{{ block.votes }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="actions">
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn secondary">Back to Dashboard</a>
+                    <a href="{{ url_for('blockchain_visual') }}" class="btn primary">Visual View</a>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 Blockchain Voting System - College Project</p>
+        </footer>
+    </div>
+</body>
+</html>
